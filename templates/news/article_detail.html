@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{{ article.title }}{% endblock %}
+{% block content %}
+<h1 class="h3">{{ article.title }}</h1>
+<p class="text-muted">
+  {{ article.get_status_display }} · {{ article.get_priority_display }} ·
+  Автор: {{ article.author }} · Оновлено: {{ article.updated_at|date:"d.m.Y H:i" }}
+</p>
+<div class="mb-3">{{ article.content|linebreaks }}</div>
+
+{% if user == article.author %}
+  <a href="{% url 'news:article_update' article.slug %}" class="btn btn-outline-primary">Редагувати</a>
+  <a href="{% url 'news:article_delete' article.slug %}" class="btn btn-outline-danger">Видалити</a>
+{% endif %}
+{% endblock %}
